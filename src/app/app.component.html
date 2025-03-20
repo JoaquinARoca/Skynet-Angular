@@ -1,0 +1,10 @@
+@if(loggedin)
+{
+    <app-usuario></app-usuario>
+}
+@else  {
+    <app-register></app-register>
+    <app-login (exportLoggedIn)="getLoggedIn($event)"></app-login>
+}
+
+<router-outlet />

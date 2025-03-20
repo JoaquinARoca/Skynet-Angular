@@ -1,0 +1,29 @@
+.centrado-negrita {
+    text-align: center;
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 30px;
+    margin-right: 20px;
+  }
+.imagen-perfil {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    text-align: center;
+  }
+.usuario-container {       
+    display: flex;           
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;     
+  }
+.datos-container {             
+    text-align: center;
+    margin-top: 10px;     
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px;
+
+  }
+
+
+

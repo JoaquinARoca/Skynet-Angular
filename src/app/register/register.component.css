@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.btn-primary {
+    margin-top: 20px;
+}
+.mb-3 {
+    margin-top: 20px;
+}

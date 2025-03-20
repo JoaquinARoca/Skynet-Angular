@@ -1,0 +1,25 @@
+<div class="boton-container">
+    <button (click)="obtenerUsuarios()" class="listar-boton">
+        Listar todos los usuarios
+    </button>
+</div>
+<div class="listar-container">
+
+    <p>
+        Escribe el filtrado de usuarios: <input type="text" [(ngModel)]="query">
+    </p>
+
+    <div *ngIf="users.length > 0">
+        <div *ngFor="let user of (users | nombre:query); let i = index; trackBy: trackByUserId">
+            <h2 (click)="changeName(user.name)">Nombre del usuario: {{user.name}}</h2>
+            <p>Edad del usuario: {{user.age}}</p>
+            <p>Email del usuario: {{user.email}}</p>
+            <button (click)="deleteUser(i)" class="listar-boton">
+                Borrar
+            </button>
+        </div>
+    </div>
+    <div *ngIf="users.length === 0">
+        <h2>No hay usuarios</h2>
+    </div>
+</div>

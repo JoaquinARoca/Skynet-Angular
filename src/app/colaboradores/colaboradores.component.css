@@ -1,0 +1,13 @@
+.boton-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 20px;
+    justify-content: center;
+}
+.listar-container{
+    text-align: center;
+    margin-top: 10px;     
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 20px
+}
