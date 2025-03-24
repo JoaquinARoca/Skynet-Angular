@@ -1,63 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
-import { EventEmitter, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { User } from '../models/user.model';
-import { V } from '@angular/cdk/keycodes';
-
-
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, CommonModule],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css',
-  standalone: true
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  formularioRegister: FormGroup;
+  authService = inject(AuthService);
+  router = inject(Router);
 
-  formularioRegistro: FormGroup;
-  authservice = inject(AuthService);
-  @Output() registered = new EventEmitter<string>();
-  @Output() exportRegistered = new EventEmitter<boolean>();
-
-  constructor(private form: FormBuilder) {
-    this.formularioRegistro = this.form.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
+  constructor(private fb: FormBuilder) {
+    this.formularioRegister = this.fb.group({
+      userName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(3)]],
-    });
-   }
-
-  ngOnInit(): void {
-    this.formularioRegistro = this.form.group({
-      username: ['eve.holt@reqres.in', [Validators.required, Validators.minLength(3)]],
-      email: ['eve.holt@reqres.in', [Validators.required, Validators.email]],
-      password: ['pistol', [Validators.required, Validators.minLength(3)]]
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      role: ['Administrador', Validators.required]
     });
   }
 
-  hasError(controlName: string, errorType: string) {
-    return this.formularioRegistro.get(controlName)?.hasError(errorType) && this.formularioRegistro.get(controlName)?.touched;
-  }
+  ngOnInit(): void {}
 
   register() {
-    if (this.formularioRegistro.invalid) {
-      this.formularioRegistro.markAllAsTouched();
+    if (this.formularioRegister.invalid) {
+      this.formularioRegister.markAllAsTouched();
       return;
     }
 
-    const registerData = this.formularioRegistro.value;
 
-    this.authservice.register(registerData).subscribe({
-      next: (response) => {
-        console.log('Registro exitoso:', response);
-        this.exportRegistered.emit(true);
+    this.authService.register(this.formularioRegister.value).subscribe({
+      next: () => {
+        alert('Registro exitoso. Ahora puedes iniciar sesión.');
+        this.router.navigate(['/login']);
       },
-      error: (error) => {
-        console.error('Error en el registro:', error);
-        alert('Error en el registro, verifica tus credenciales');
+      error: (err) => {
+        console.error('Error en registro', err);
+        alert('Error al registrarse.');
       }
     });
   }

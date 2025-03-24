@@ -1,12 +1,121 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    background: #fff;
+  }
+  h2 {
+    margin-bottom: 20px;
+  }
+  .text-danger {
+    font-size: 0.9em;
+  }
+  /* 
+   Fondo con degradado y fuente Roboto.
+   Para que el fondo ocupe toda la pantalla y se vea "futurista".
+*/
+:host {
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(120deg, #1f1c2c, #928dab);
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 0;
 }
-.btn-primary {
-    margin-top: 20px;
+
+/* Contenedor que centra el form vertical y horizontalmente */
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
-.mb-3 {
-    margin-top: 20px;
+
+/* Caja del formulario */
+.auth-container {
+  background: rgba(0, 0, 0, 0.8);
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 350px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(0,0,0,0.3);
+}
+
+.auth-container h1 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+.auth-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  color: #ccc;
+}
+
+/* Estilos del form */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+label {
+  text-align: left;
+  margin-top: 1rem;
+  font-weight: 500;
+  color: #ccc;
+}
+
+/* Inputs */
+.form-control {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0.3rem;
+  background: #2b2b2b;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  outline: 2px solid #3f51b5;
+}
+
+/* Botón */
+button {
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  background-color: #3f51b5;
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #303f9f;
+}
+
+.switch {
+  margin-top: 1rem;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.link {
+  color: #00bcd4;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
 }
