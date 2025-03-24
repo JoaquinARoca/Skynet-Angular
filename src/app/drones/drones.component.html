@@ -1,0 +1,102 @@
+<div class="container">
+  <h2>Gestión de Drones</h2>
+
+  <!-- Listado de drones -->
+  <div class="drone-list">
+    <h3>Lista de Drones</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Modelo</th>
+          <th>Precio</th>
+          <th>Tipo</th>
+          <th>Condición</th>
+          <th>Categoría</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let drone of drones">
+          <td>{{ drone.id }}</td>
+          <td>{{ drone.name }}</td>
+          <td>{{ drone.model }}</td>
+          <td>{{ drone.price }}</td>
+          <td>{{ drone.type }}</td>
+          <td>{{ drone.condition }}</td>
+          <td>{{ drone.category }}</td>
+          <td>
+            <button (click)="onEdit(drone)">Editar</button>
+            <button (click)="onDelete(drone)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Formulario para crear/editar drone -->
+  <div class="drone-form">
+    <h3>{{ editing ? 'Editar Dron' : 'Crear Nuevo Dron' }}</h3>
+    <form [formGroup]="droneForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="id">ID:</label>
+        <input id="id" formControlName="id" type="text">
+      </div>
+      <div>
+        <label for="name">Nombre:</label>
+        <input id="name" formControlName="name" type="text">
+      </div>
+      <div>
+        <label for="model">Modelo:</label>
+        <input id="model" formControlName="model" type="text">
+      </div>
+      <div>
+        <label for="price">Precio:</label>
+        <input id="price" formControlName="price" type="number">
+      </div>
+      <div>
+        <label for="description">Descripción:</label>
+        <textarea id="description" formControlName="description"></textarea>
+      </div>
+      <div>
+        <label for="images">Imágenes (separadas por comas):</label>
+        <input id="images" formControlName="images" type="text">
+      </div>
+      <div>
+        <label for="type">Tipo (venta/alquiler):</label>
+        <select id="type" formControlName="type">
+          <option value="venta">Venta</option>
+          <option value="alquiler">Alquiler</option>
+        </select>
+      </div>
+      <div>
+        <label for="condition">Condición (nuevo/usado):</label>
+        <select id="condition" formControlName="condition">
+          <option value="nuevo">Nuevo</option>
+          <option value="usado">Usado</option>
+        </select>
+      </div>
+      <div>
+        <label for="location">Ubicación:</label>
+        <input id="location" formControlName="location" type="text">
+      </div>
+      <div>
+        <label for="contact">Contacto:</label>
+        <input id="contact" formControlName="contact" type="text">
+      </div>
+      <div>
+        <label for="category">Categoría:</label>
+        <input id="category" formControlName="category" type="text">
+      </div>
+      <div>
+        <label for="sellerId">ID del Vendedor:</label>
+        <input id="sellerId" formControlName="sellerId" type="text">
+      </div>
+      <div class="form-actions">
+        <button type="submit">{{ editing ? 'Actualizar Dron' : 'Crear Dron' }}</button>
+        <button type="button" (click)="resetForm()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

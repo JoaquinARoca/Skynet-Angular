@@ -1,75 +1,84 @@
 import { CommonModule } from '@angular/common';
-import { UserService } from '../services/user.service';
-import { User } from '../models/user.model';
-import { Component, inject,EventEmitter, Input, Output } from '@angular/core';
-import { ConfirmDialogComponent } from '../confirmDialog/confirm-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { NombrePipe } from '../pipes/nombre.pipe';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+
+import { ConfirmDialogComponent } from '../confirmDialog/confirm-dialog.component';
+import { NombrePipe } from '../pipes/nombre.pipe';
+import { UserService, User } from '../services/user.service';  // Se importa "User" en lugar de "IUser"
 
 @Component({
   selector: 'app-colaboradores',
-  imports: [CommonModule, NombrePipe, FormsModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    NombrePipe
+  ],
   templateUrl: './colaboradores.component.html',
-  styleUrl: './colaboradores.component.css',
-  standalone: true
+  styleUrls: ['./colaboradores.component.css']
 })
 export class ColaboradoresComponent {
-  users: User [];
+
+  // Lista local de usuarios usando la interfaz "User"
+  users: User[] = [];
+
+  // Para filtrar usuarios con el pipe 'nombre'
   query = 'b';
-  //Para recibir el usuario que proviene del componente usuario
-  @Input() usuario: User = new User();
 
-  constructor() {
-    this.users = [];
-  }
+  // Recibir un usuario desde el componente padre (UsuarioComponent)
+  // Se define un objeto por defecto acorde a la interfaz "User"
+  @Input() usuario: User = {
+    userName: 'Usuario por defecto',
+    email: 'default@example.com',
+    password: '',
+    role: 'Usuario'
+  };
 
-  //Para poder usar los servicios que son get de usuario/usuarios
+  // Para emitir un evento al padre cuando cambiemos el nombre
+  @Output() changeNameEvent = new EventEmitter<string>();
+
+  // Inyectamos el servicio de usuarios
   userService = inject(UserService);
 
-  //Función que se usa cuando se hace click a listar usuarios
-  async obtenerUsuarios() {
+  // Inyectamos MatDialog para mostrar diálogos de confirmación
+  dialog: MatDialog = inject(MatDialog);
 
-    //Usa getUsers() del servicio UserService para hacer la peticion get a la API de todos los usuarios
-    this.userService.getUsers().subscribe({
-      next: (users) => {
-        //se añaden los usuarios recibidos por la peticion getUsers() a la lista de usuarios
+  constructor() {}
+
+  async obtenerUsuarios(): Promise<void> {
+    this.userService.getAllUsers().subscribe(
+      (users: User[]) => {
+        // Guardamos la lista de usuarios recibida
         this.users = users;
-        console.log(this.users);
-        //se añade el usuario recibido del componente usuario a la lista de usuarios
+        console.log('Usuarios obtenidos:', this.users);
+
         this.users.push(this.usuario);
-        console.log(this.users);
+        console.log('Usuarios + usuario local:', this.users);
       },
-      error: (error) => {
+      (error: any) => {
         console.error('Error al obtener usuarios:', error);
       }
-    });
-
+    );
   }
 
-  trackByUserId(index: number, user: any): number {
-    return user.id;
+  trackByUserId(index: number, user: User): string | number {
+    // Se utiliza el _id si existe, o en su defecto el userName
+    return user._id || user.userName;
   }
 
-  //Cuando se hace click en el nombre de algun usuario listado se pasa el nombre de este al componente usuario, que canviara el nombre del usuario al del listado.
-  @Output() changeNameEvent = new EventEmitter<string>();
-  changeName(Name: string){
+  changeName(Name: string): void {
     this.changeNameEvent.emit(Name);
   }
 
-  //Para poder usar el componente de dialogo de confirmación
-  dialog: MatDialog = inject(MatDialog);
-
-  //Función que se usa para eliminar un usuario de la lista de users
-  deleteUser(i: number) {
-    //Antes de eliminar un usuario se muestra un dialogo de confirmación.
+  deleteUser(i: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
-    //Una vez se da al boton eliminar/cancelar en el dialogo de confimación se devuelve un booleano para proceder o no a la eliminacion de este.
+
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        console.log("delete User ",i);
+        console.log('delete User index:', i);
         this.users.splice(i, 1);
-    }
+      }
     });
   }
 }

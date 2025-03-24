@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { UsuarioComponent } from "./usuario/usuario.component";
-import { LoginComponent } from "./login/login.component";
-import { RegisterComponent } from "./register/register.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, UsuarioComponent, LoginComponent, RegisterComponent],
+  standalone: true,
+  imports: [
+    // Solo dejamos RouterOutlet porque sí lo usamos en el HTML
+    RouterOutlet 
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-  standalone: true
-  
+  styleUrls: ['./app.component.css']  
 })
 export class AppComponent {
-  title = 'angular-seminari6';
+  title = 'SKYNET';
   loggedin: boolean = false;
-  getLoggedIn(loggedin: boolean){
+
+  getLoggedIn(loggedin: boolean) {
     this.loggedin = loggedin;
   }
 }

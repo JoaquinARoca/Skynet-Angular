@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from '../models/user.model';
-import { ColaboradoresComponent } from "../colaboradores/colaboradores.component";
+import { ColaboradoresComponent } from '../colaboradores/colaboradores.component';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-usuario',
+  standalone: true,
   imports: [CommonModule, ColaboradoresComponent, FormsModule],
   templateUrl: './usuario.component.html',
-  styleUrl: './usuario.component.css',
-  standalone: true
+  styleUrls: ['./usuario.component.css'] 
 })
 export class UsuarioComponent {
 
@@ -22,16 +23,17 @@ export class UsuarioComponent {
     email: "toni.oller@gmail.com",
   };
   
-  constructor() {      
+  constructor() {
     this.foto = "https://github.com/tonioller.png";
     this.mostrardata = false;
   }
 
-  mostrardatos(){
+  mostrardatos() {
+    // Muestra los datos al hacer click en la imagen
     this.mostrardata = true;
   }
 
-  getName(Name: string){
+  getName(Name: string) {
     this.usuario.name = Name;
   }
 

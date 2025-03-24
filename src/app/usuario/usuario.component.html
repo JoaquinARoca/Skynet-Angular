@@ -1,19 +1,25 @@
 <div class="usuario-container">
-   <div class="centrado-negrita">
-        Datos del usuario {{usuario.name}}:       
+    <div class="centrado-negrita">
+      Datos del usuario {{ usuario.name }}:
     </div>
-    <img (click) = "mostrardatos()" class="imagen-perfil" alt="photo" [src]="foto" />
-    
-</div>
-<div class="datos-container">
-    @if (mostrardata) {
-        <p> <strong>Nombre: </strong>  {{usuario.name}}</p>
-        <p> <strong>Años: </strong> {{usuario.age}}</p>
-        <p> <strong>Email: </strong> {{usuario.email}}</p>
-    }     
- </div>
- <app-colaboradores 
-    (changeNameEvent)="getName($event)" 
-    [usuario]="usuario"></app-colaboradores>
-
- 
+    <img
+      (click)="mostrardatos()"
+      class="imagen-perfil"
+      alt="photo"
+      [src]="foto"
+    />
+  </div>
+  
+  <!-- Mostramos los datos SÓLO si mostrardata es true -->
+  <div class="datos-container" *ngIf="mostrardata">
+    <p><strong>Nombre:</strong> {{ usuario.name }}</p>
+    <p><strong>Años:</strong> {{ usuario.age }}</p>
+    <p><strong>Email:</strong> {{ usuario.email }}</p>
+  </div>
+  
+  <!-- Componente colaboradores -->
+  <app-colaboradores
+    (changeNameEvent)="getName($event)"
+    [usuario]="usuario"
+  ></app-colaboradores>
+  

@@ -1,8 +1,9 @@
+// src/app/login/login.component.ts
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService, LoginPayload } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,34 +13,37 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  formularioLogin: FormGroup;
+  loginForm!: FormGroup;
   authService = inject(AuthService);
   router = inject(Router);
 
-  constructor(private fb: FormBuilder) {
-    this.formularioLogin = this.fb.group({
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
-  ngOnInit(): void {}
-
-  login() {
-    if (this.formularioLogin.invalid) {
-      this.formularioLogin.markAllAsTouched();
+  onLogin() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
 
+    const payload: LoginPayload = this.loginForm.value;
 
-    this.authService.login(this.formularioLogin.value).subscribe({
+    this.authService.login(payload).subscribe({
       next: (res) => {
-        console.log('Login exitoso', res);
+        // Tu backend solo devuelve { message: 'Sesión iniciada con éxito' } si todo va bien
+        alert(res.message || 'Login exitoso');
+        // Redirige a home o
         this.router.navigate(['/home']);
       },
       error: (err) => {
-        console.error('Error en login', err);
-        alert('Email o contraseña incorrectos');
+        console.error(err);
+        alert(err.error?.message || 'Error al iniciar sesión');
       }
     });
   }

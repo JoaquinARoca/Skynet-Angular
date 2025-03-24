@@ -1,45 +1,24 @@
-<div class="auth-wrapper">
-  <div class="auth-container">
-    <h1>SKYNET DRONES</h1>
-    <h2>Registro</h2>
+<div class="container">
+  <h2>Registro de Usuario</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+    <label>Nombre de usuario</label>
+    <input type="text" formControlName="userName" />
 
-    <form [formGroup]="formularioRegister" (ngSubmit)="register()">
-      <label>Nombre de usuario</label>
-      <input
-        type="text"
-        class="form-control"
-        formControlName="userName"
-        placeholder="Ingresa tu nombre de usuario..."
-      />
+    <label>Email</label>
+    <input type="email" formControlName="email" />
 
-      <label>Email</label>
-      <input
-        type="email"
-        class="form-control"
-        formControlName="email"
-        placeholder="Ingresa tu email..."
-      />
+    <label>Contraseña</label>
+    <input type="password" formControlName="password" />
 
-      <label>Contraseña</label>
-      <input
-        type="password"
-        class="form-control"
-        formControlName="password"
-        placeholder="Ingresa tu contraseña..."
-      />
+    <label>Rol</label>
+    <select formControlName="role">
+      <option value="Administrador">Administrador</option>
+      <option value="Usuario">Usuario</option>
+      <option value="Empresa">Empresa</option>
+      <option value="Gobierno">Gobierno</option>
+    </select>
 
-      <label>Rol</label>
-      <select class="form-control" formControlName="role">
-        <option value="Administrador">Administrador</option>
-        <option value="Usuario">Usuario</option>
-      </select>
-
-      <button type="submit">Registrarse</button>
-    </form>
-
-    <p class="switch">
-      ¿Ya tienes cuenta? 
-      <a routerLink="/login" class="link">Inicia sesión</a>
-    </p>
-  </div>
+    <button type="submit">Registrarse</button>
+  </form>
+  <p>¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
 </div>

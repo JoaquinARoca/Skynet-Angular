@@ -1,32 +1,13 @@
-<div class="auth-wrapper">
-    <div class="auth-container">
-      <h1>SKYNET DRONES</h1>
-      <h2>Iniciar Sesión</h2>
-  
-      <form [formGroup]="formularioLogin" (ngSubmit)="login()">
-        <label>Email</label>
-        <input
-          type="email"
-          class="form-control"
-          formControlName="email"
-          placeholder="Ingresa tu email..."
-        />
-  
-        <label>Contraseña</label>
-        <input
-          type="password"
-          class="form-control"
-          formControlName="password"
-          placeholder="Ingresa tu contraseña..."
-        />
-  
-        <button type="submit">Ingresar</button>
-      </form>
-  
-      <p class="switch">
-        ¿No tienes cuenta? 
-        <a routerLink="/register" class="link">Regístrate aquí</a>
-      </p>
-    </div>
-  </div>
-  
+<div class="container">
+  <h2>Iniciar Sesión</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <label>Email</label>
+    <input type="email" formControlName="email" />
+
+    <label>Contraseña</label>
+    <input type="password" formControlName="password" />
+
+    <button type="submit">Ingresar</button>
+  </form>
+  <p>¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a></p>
+</div>
