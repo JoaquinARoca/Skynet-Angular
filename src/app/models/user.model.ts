@@ -1,12 +1,12 @@
 // Interfaz que describe la estructura del usuario
-export interface IUser {
+export interface User {
   id: number;
   name: string;
   age: number;
   email: string;
 }
 
-export class UserModel implements IUser {
+export class UserModel implements User {
   id: number;
   name: string;
   age: number;

@@ -1,5 +1,4 @@
-// src/app/login/login.component.ts
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -14,10 +13,10 @@ import { AuthService, LoginPayload } from '../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  authService = inject(AuthService);
-  router = inject(Router);
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -26,22 +25,19 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onLogin() {
+  onLogin(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
 
     const payload: LoginPayload = this.loginForm.value;
-
     this.authService.login(payload).subscribe({
-      next: (res) => {
-        // Tu backend solo devuelve { message: 'Sesión iniciada con éxito' } si todo va bien
+      next: (res: any) => {
         alert(res.message || 'Login exitoso');
-        // Redirige a home o
         this.router.navigate(['/home']);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error(err);
         alert(err.error?.message || 'Error al iniciar sesión');
       }

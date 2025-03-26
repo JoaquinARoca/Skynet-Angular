@@ -1,0 +1,199 @@
+/* Contenedor principal */
+.drones-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Encabezado y botón crear */
+  .header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .header-section h1 {
+    margin: 0;
+  }
+  
+  .btn-create {
+    background-color: #007bff;
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .btn-create:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Sección de categorías */
+  .categories-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  .categories-container h2 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .categories-list {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 80px;
+  }
+  
+  .category-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-bottom: 0.3rem;
+  }
+  
+  .category-item span {
+    font-size: 0.9rem;
+  }
+  
+  /* Listado de drones en tarjetas */
+  .drone-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  
+  .drone-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  
+  .drone-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .drone-image {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-content {
+    flex: 1;
+  }
+  
+  .card-content h3 {
+    margin: 0.5rem 0;
+  }
+  
+  .price {
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  .type,
+  .condition {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .description {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  /* Botones en la tarjeta */
+  .card-actions {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .card-actions button {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .card-actions button:first-child {
+    background-color: #ffc107;
+  }
+  
+  .card-actions button:last-child {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  /* Formulario */
+  .drone-form-container {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+  }
+  
+  .drone-form-container h2 {
+    margin-top: 0;
+  }
+  
+  .form-group {
+    margin-bottom: 0.8rem;
+  }
+  
+  .form-group label {
+    display: inline-block;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+  }
+  
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 0.4rem;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .form-actions button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .form-actions button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .form-actions button[type="button"] {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
