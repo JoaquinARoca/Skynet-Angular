@@ -1,38 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Comment } from '../models/comment.model';
+import { Order } from '../models/order.model';
 import { AuthService } from './auth.service';
 import { enviroment } from '../enviroment';
 
 @Injectable({ providedIn: 'root' })
-export class CommentService {
-  private apiUrl = `${enviroment.apiUrl}/comments`;
+export class OrderService {
+  private apiUrl = `${enviroment.apiUrl}/orders`;
 
   constructor(private http: HttpClient) {}
 
-  getAll(filtro: Record<string, string> = {}, page?: number): Observable<Comment[]> {
+  getAll(filtro: Record<string, string> = {}, page?: number): Observable<Order[]> {
     const params = new HttpParams({ fromObject: { ...filtro, ...(page ? { page } : {}) } });
-    return this.http.get<Comment[]>(this.apiUrl, {
+    return this.http.get<Order[]>(this.apiUrl, {
       headers: AuthService.getHeaders(),
       params
     });
   }
 
-  getById(id: string): Observable<Comment> {
-    return this.http.get<Comment>(`${this.apiUrl}?id=${id}`, {
+  getById(id: string): Observable<Order> {
+    return this.http.get<Order>(`${this.apiUrl}?id=${id}`, {
       headers: AuthService.getHeaders()
     });
   }
 
-  create(data: Partial<Comment>): Observable<Comment> {
-    return this.http.post<Comment>(this.apiUrl, data, {
+  create(data: Partial<Order>): Observable<Order> {
+    return this.http.post<Order>(this.apiUrl, data, {
       headers: AuthService.getHeaders()
     });
   }
 
-  update(id: string, data: Partial<Comment>): Observable<Comment> {
-    return this.http.put<Comment>(`${this.apiUrl}?id=${id}`, data, {
+  update(id: string, data: Partial<Order>): Observable<Order> {
+    return this.http.put<Order>(`${this.apiUrl}?id=${id}`, data, {
       headers: AuthService.getHeaders()
     });
   }
@@ -43,7 +43,7 @@ export class CommentService {
     });
   }
 
-  getAtributos(): (keyof Comment)[] {
-    return ['id', 'droneId', 'userId', 'text', 'rating', 'parentCommentId', 'createdAt'];
+  getAtributos(): (keyof Order)[] {
+    return ['id', 'droneId', 'buyerId', 'sellerId', 'status', 'createdAt'];
   }
 }

@@ -1,0 +1,14 @@
+<div class="container">
+  <h2 *ngIf="id; else nuevo">Editar {{ modelo }}</h2>
+  <ng-template #nuevo><h2>Crear {{ modelo }}</h2></ng-template>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div *ngFor="let attr of atributos">
+      <label [for]="attr">{{ attr }}</label>
+      <input [id]="attr" [formControlName]="attr" />
+    </div>
+
+    <button type="submit">Guardar</button>
+    <button type="button" (click)="router.navigate(['/panel', modelo])">Cancelar</button>
+  </form>
+</div>

@@ -1,0 +1,44 @@
+<div class="panel-container">
+  <h2 class="titulo">{{ modelo | uppercase }}</h2>
+
+  <div class="filtros">
+    <label for="atributo">Filtrar por:</label>
+    <select [(ngModel)]="atributoFiltro" id="atributo">
+      <option *ngFor="let attr of atributos" [value]="attr">{{ attr }}</option>
+    </select>
+
+    <input [(ngModel)]="filtro" placeholder="Valor de filtro" />
+    <button (click)="cargarDatos()">Buscar</button>
+    <button (click)="crearNuevo()">+ Nuevo</button>
+  </div>
+
+  <div class="tabla-wrapper" *ngIf="datos.length > 0">
+    <table class="tabla-modelos">
+      <thead>
+        <tr>
+          <th *ngFor="let attr of atributos">{{ attr }}</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of datos">
+          <td *ngFor="let attr of atributos">{{ item[attr] }}</td>
+          <td>
+            <button (click)="editar(item.id || item._id)">✏️</button>
+            <button (click)="borrar(item.id || item._id)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="datos.length === 0" class="sin-resultados">
+    No se encontraron resultados.
+  </div>
+
+  <div class="paginacion">
+    <button (click)="page = page - 1; cargarDatos()" [disabled]="page <= 1">← Anterior</button>
+    <span>Página {{ page }}</span>
+    <button (click)="page = page + 1; cargarDatos()">Siguiente →</button>
+  </div>
+</div>

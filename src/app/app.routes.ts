@@ -1,25 +1,16 @@
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { DronesComponent } from './drones/drones.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { ForumComponent } from './forum/forum.component';
-import { CommentComponent } from './comment/comment.component';
-import { MessageComponent } from './message/message.component';
-import { NotificationComponent } from './notification/notification.component';
+import { NgModule } from '@angular/core';
 
-const routes: Routes = [
+
+export const routes: Routes = [
+  { path: 'panel/:modelo', loadComponent: () => import('./panel/panel.component').then(m => m.PanelComponent) },
+  { path: 'form/:modelo', loadComponent: () => import('./form/form.component').then(m => m.FormComponent) },
+  { path: 'form/:modelo/:id', loadComponent: () => import('./form/form.component').then(m => m.FormComponent) },
+  { path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent) },
+   { path: 'login', loadComponent: () => import('./login/login.component').then(m => m.LoginComponent) },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'drones', component: DronesComponent },
-  { path: 'forum', component: ForumComponent },
-  { path: 'comments', component: CommentComponent },
-  { path: 'messages', component: MessageComponent },
-  { path: 'notifications', component: NotificationComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

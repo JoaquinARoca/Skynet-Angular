@@ -1,59 +1,52 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 import { AuthService } from './auth.service';
+import { enviroment } from '../enviroment';
 
-export interface User {
-  _id?: string;
-  userName: string;
-  email: string;
-  password?: string;
-  role: 'Administrador' | 'Usuario' | 'Empresa' | 'Gobierno';
-}
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UserService {
-  // La URL base debe coincidir con la de tu backend
-  private apiUrl = 'http://localhost:9000/api/users';
-  constructor(private http: HttpClient) { }
+  private apiUrl = `${enviroment.apiUrl}/users`;
 
-  // // Registro de un nuevo usuario
-  // register(user: User): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/signup`, user);
-  // }
+  constructor(private http: HttpClient) {}
 
-  // // Login de usuario
-  // login(email: string, password: string): Observable<any> {
-  //   return this.http.post(`${this.apiUrl}/login`, { email, password });
-  // }
-
-  // Obtener todos los usuarios (solo los que no han sido eliminados)
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl,{
-      headers:AuthService.getHeaders()
+  getAll(filtro: Record<string, string> = {}, page?: number): Observable<User[]> {
+    const params = new HttpParams({ fromObject: { ...filtro, ...(page ? { page } : {}) } });
+    return this.http.get<User[]>(this.apiUrl, {
+      headers: AuthService.getHeaders(),
+      params
     });
   }
 
-  // Obtener un usuario por ID
-  getUserById(id: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`,{
-      headers:AuthService.getHeaders()
+  getById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}?id=${id}`, {
+      headers: AuthService.getHeaders()
     });
   }
 
-  // Actualizar un usuario
-  updateUser(id: string, userData: Partial<User>): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, userData,{
-      headers:AuthService.getHeaders()
+  create(data: Partial<User>): Observable<User> {
+    return this.http.post<User>(this.apiUrl, data, {
+      headers: AuthService.getHeaders()
     });
   }
 
-  // Eliminar un usuario (borrado lógico)
-  deleteUser(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`,{
-      headers:AuthService.getHeaders()
+  update(id: string, data: Partial<User>): Observable<User> {
+    return this.http.put<User>(`${this.apiUrl}?id=${id}`, data, {
+      headers: AuthService.getHeaders()
     });
+  }
+
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}?id=${id}`, {
+      headers: AuthService.getHeaders()
+    });
+  }
+
+  getAtributos(): (keyof User)[] {
+    return [
+      'id', 'userName', 'email', 'password', 'isDeleted', 'role',
+      'favorites', 'following', 'balance', 'purchases', 'sales'
+    ];
   }
 }

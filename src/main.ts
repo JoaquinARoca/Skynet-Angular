@@ -5,10 +5,11 @@ import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@an
 import { AppRoutesModule } from './app/app.routes';
 import { TokenInterceptor } from './app/interceptors/token.interceptor';
 import { FormsModule } from '@angular/forms'
+import { CommonModule } from '@angular/common';
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(HttpClientModule, AppRoutesModule,FormsModule),
+    importProvidersFrom(HttpClientModule, AppRoutesModule,FormsModule,CommonModule,FormsModule),
     provideHttpClient(withInterceptorsFromDi()),
     TokenInterceptor
   ]

@@ -1,28 +1,23 @@
-export interface Notification{
-    id:string;
-    to:string;
-    from:string;
-    type:string;
-    post:string;
-    read:boolean;
-    createAt:Date;    
+export interface Notification {
+  id: string;
+  to: string;
+  from: string;
+  type: 'like' | 'comment' | 'follow' | 'new_post';
+  post?: string;
+  read: boolean;
+  createdAt: Date;
 }
 
-export class NotificationModel implements Notification{
-    id:string;
-    to:string;
-    from:string;
-    type:string;
-    post:string;
-    read:boolean;
-    createAt:Date;
-    constructor(id:string,to:string,from:string,type:string,post:string,read:boolean,createAt:Date){
-        this.id = id;
-        this.to = to;
-        this.from = from;
-        this.type = type;
-        this.post = post;
-        this.read = read;
-        this.createAt = createAt;
-    }
+export class NotificationModel implements Notification {
+  id = '';
+  to = '';
+  from = '';
+  type: 'like' | 'comment' | 'follow' | 'new_post' = 'like';
+  post = '';
+  read = false;
+  createdAt = new Date();
+
+  constructor(data?: Partial<Notification>) {
+    Object.assign(this, data);
+  }
 }

@@ -1,38 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Comment } from '../models/comment.model';
+import { Payment } from '../models/payment.model';
 import { AuthService } from './auth.service';
 import { enviroment } from '../enviroment';
 
 @Injectable({ providedIn: 'root' })
-export class CommentService {
-  private apiUrl = `${enviroment.apiUrl}/comments`;
+export class PaymentService {
+  private apiUrl = `${enviroment.apiUrl}/payments`;
 
   constructor(private http: HttpClient) {}
 
-  getAll(filtro: Record<string, string> = {}, page?: number): Observable<Comment[]> {
+  getAll(filtro: Record<string, string> = {}, page?: number): Observable<Payment[]> {
     const params = new HttpParams({ fromObject: { ...filtro, ...(page ? { page } : {}) } });
-    return this.http.get<Comment[]>(this.apiUrl, {
+    return this.http.get<Payment[]>(this.apiUrl, {
       headers: AuthService.getHeaders(),
       params
     });
   }
 
-  getById(id: string): Observable<Comment> {
-    return this.http.get<Comment>(`${this.apiUrl}?id=${id}`, {
+  getById(id: string): Observable<Payment> {
+    return this.http.get<Payment>(`${this.apiUrl}?id=${id}`, {
       headers: AuthService.getHeaders()
     });
   }
 
-  create(data: Partial<Comment>): Observable<Comment> {
-    return this.http.post<Comment>(this.apiUrl, data, {
+  create(data: Partial<Payment>): Observable<Payment> {
+    return this.http.post<Payment>(this.apiUrl, data, {
       headers: AuthService.getHeaders()
     });
   }
 
-  update(id: string, data: Partial<Comment>): Observable<Comment> {
-    return this.http.put<Comment>(`${this.apiUrl}?id=${id}`, data, {
+  update(id: string, data: Partial<Payment>): Observable<Payment> {
+    return this.http.put<Payment>(`${this.apiUrl}?id=${id}`, data, {
       headers: AuthService.getHeaders()
     });
   }
@@ -43,7 +43,7 @@ export class CommentService {
     });
   }
 
-  getAtributos(): (keyof Comment)[] {
-    return ['id', 'droneId', 'userId', 'text', 'rating', 'parentCommentId', 'createdAt'];
+  getAtributos(): (keyof Payment)[] {
+    return ['id', 'orderId', 'userId', 'amount', 'status', 'createdAt'];
   }
 }

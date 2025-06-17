@@ -1,0 +1,75 @@
+.panel-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.titulo {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.filtros input,
+.filtros select {
+  padding: 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #303f9f;
+}
+
+.tabla-wrapper {
+  overflow-x: auto;
+}
+
+.tabla-modelos {
+  width: 100%;
+  border-collapse: collapse;
+  margin: auto;
+}
+
+.tabla-modelos th,
+.tabla-modelos td {
+  border: 1px solid #ddd;
+  padding: 0.6rem;
+  text-align: left;
+}
+
+.tabla-modelos th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.sin-resultados {
+  margin-top: 2rem;
+  font-style: italic;
+  color: #888;
+}
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}

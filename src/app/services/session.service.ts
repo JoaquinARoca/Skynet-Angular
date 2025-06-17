@@ -1,38 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Comment } from '../models/comment.model';
+import { Session } from '../models/session.model';
 import { AuthService } from './auth.service';
 import { enviroment } from '../enviroment';
 
 @Injectable({ providedIn: 'root' })
-export class CommentService {
-  private apiUrl = `${enviroment.apiUrl}/comments`;
+export class SessionService {
+  private apiUrl = `${enviroment.apiUrl}/sessions`;
 
   constructor(private http: HttpClient) {}
 
-  getAll(filtro: Record<string, string> = {}, page?: number): Observable<Comment[]> {
+  getAll(filtro: Record<string, string> = {}, page?: number): Observable<Session[]> {
     const params = new HttpParams({ fromObject: { ...filtro, ...(page ? { page } : {}) } });
-    return this.http.get<Comment[]>(this.apiUrl, {
+    return this.http.get<Session[]>(this.apiUrl, {
       headers: AuthService.getHeaders(),
       params
     });
   }
 
-  getById(id: string): Observable<Comment> {
-    return this.http.get<Comment>(`${this.apiUrl}?id=${id}`, {
+  getById(id: string): Observable<Session> {
+    return this.http.get<Session>(`${this.apiUrl}?id=${id}`, {
       headers: AuthService.getHeaders()
     });
   }
 
-  create(data: Partial<Comment>): Observable<Comment> {
-    return this.http.post<Comment>(this.apiUrl, data, {
+  create(data: Partial<Session>): Observable<Session> {
+    return this.http.post<Session>(this.apiUrl, data, {
       headers: AuthService.getHeaders()
     });
   }
 
-  update(id: string, data: Partial<Comment>): Observable<Comment> {
-    return this.http.put<Comment>(`${this.apiUrl}?id=${id}`, data, {
+  update(id: string, data: Partial<Session>): Observable<Session> {
+    return this.http.put<Session>(`${this.apiUrl}?id=${id}`, data, {
       headers: AuthService.getHeaders()
     });
   }
@@ -43,7 +43,7 @@ export class CommentService {
     });
   }
 
-  getAtributos(): (keyof Comment)[] {
-    return ['id', 'droneId', 'userId', 'text', 'rating', 'parentCommentId', 'createdAt'];
+  getAtributos(): (keyof Session)[] {
+    return ['id', 'scenario', 'mode', 'host', 'participants', 'state', 'createdAt'];
   }
 }
