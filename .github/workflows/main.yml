@@ -24,8 +24,7 @@ jobs:
 
       - name: Create environment.ts from secret
         run: |
-          mkdir -p src/environments
-          echo "${{ secrets.BACKOFFICE_ENV }}" > src/app/enviroment.ts
+          echo "${{ secrets.PROD_ENV }}" > src/app/enviroment.ts
 
       - name: Build Angular project
         run: npm run build --prod
