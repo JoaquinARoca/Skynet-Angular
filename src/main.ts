@@ -1,12 +1,16 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppRoutesModule } from './app/app.routes';
+import { TokenInterceptor } from './app/interceptors/token.interceptor';
+import { FormsModule } from '@angular/forms'
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(HttpClientModule, AppRoutesModule)
+    importProvidersFrom(HttpClientModule, AppRoutesModule,FormsModule),
+    provideHttpClient(withInterceptorsFromDi()),
+    TokenInterceptor
   ]
 }).catch(err => console.error(err));
 

@@ -26,21 +26,23 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
-
-    const payload: LoginPayload = this.loginForm.value;
-    this.authService.login(payload).subscribe({
-      next: (res: any) => {
-        alert(res.message || 'Login exitoso');
-        this.router.navigate(['/home']);
-      },
-      error: (err: any) => {
-        console.error(err);
-        alert(err.error?.message || 'Error al iniciar sesión');
-      }
-    });
+  if (this.loginForm.invalid) {
+    this.loginForm.markAllAsTouched();
+    return;
   }
+
+  const payload: LoginPayload = this.loginForm.value;
+
+  this.authService.login(payload).subscribe({
+    next: (res: any) => {
+      alert(res.message || 'Login exitoso');
+      this.router.navigate(['/home']);
+    },
+    error: (err: any) => {
+      console.error(err);
+      alert(err.error?.message || 'Error al iniciar sesión');
+    }
+  });
+}
+
 }

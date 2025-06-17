@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
 export interface LoginPayload {
@@ -18,15 +18,23 @@ export interface RegisterPayload {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:9000/api/users';
-
+  private apiUrl = 'http://localhost:9000/api/auth';
   constructor(private http: HttpClient) {}
 
+  static getHeaders(): HttpHeaders{
+    const token = localStorage.getItem('access_token') || '';
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return headers;
+  }
+  
   login(payload: LoginPayload): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, payload).pipe(
       tap((res: any) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('userId', res.userId);
+        localStorage.setItem('access_token', res.accesstoken);
+        localStorage.setItem('refreshToken', res.refreshToken);
+        localStorage.setItem('userId', res.user._id);
       })
     );
   }

@@ -1,0 +1,61 @@
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.toolbar input,
+.toolbar select {
+  padding: 6px;
+  font-size: 14px;
+}
+
+.toolbar .new {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.item-card {
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.actions {
+  margin-top: 10px;
+}
+
+.actions button {
+  margin-right: 10px;
+  padding: 6px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.actions .edit {
+  background-color: #2196F3;
+  color: white;
+}
+
+.actions .delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

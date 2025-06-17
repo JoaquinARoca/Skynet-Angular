@@ -29,4 +29,17 @@ export class HomeComponent implements OnInit {
   goToDrones(): void {
     this.router.navigate(['/drones']);
   }
+
+  goToForum(): void { 
+    this.router.navigate(['/forum'])
+  }
+  goToComments(): void { 
+    this.router.navigate(['/comments'])
+  }
+  goToMessages(): void { 
+    this.router.navigate(['/messages'])
+  }
+  goToNotifications(): void { 
+    this.router.navigate(['/notifications'])
+  }
 }

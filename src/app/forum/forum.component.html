@@ -1,0 +1,24 @@
+<!-- src/app/forum/forum.component.html -->
+<h1>Mostrando datos de Forum</h1>
+<div class="toolbar">
+  <label for="atributo">Filtrar por:</label>
+  <select [(ngModel)]="atributoSeleccionado" (change)="obtenerItems()">
+    <option *ngFor="let attr of atributos" [value]="attr">{{ attr }}</option>
+  </select>
+  <input [(ngModel)]="filtro" placeholder="Buscar..." (keyup.enter)="obtenerItems()" />
+  <button class="new" (click)="crearNuevo()">NEW</button>
+</div>
+
+<div class="item-card" *ngFor="let item of items">
+  <pre>{{ item | json }}</pre>
+  <div class="actions">
+    <button class="edit" (click)="editar(item.id)">Update</button>
+    <button class="delete" (click)="eliminar(item.id)">Delete</button>
+  </div>
+</div>
+
+<div class="pagination">
+  <button (click)="paginaActual = paginaActual - 1; obtenerItems()" [disabled]="paginaActual <= 1">Anterior</button>
+  <span>Página {{ paginaActual }}</span>
+  <button (click)="paginaActual = paginaActual + 1; obtenerItems()">Siguiente</button>
+</div>
