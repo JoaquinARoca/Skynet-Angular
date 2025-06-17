@@ -4,10 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Forum } from '../models/forum.model';
 import { AuthService } from './auth.service';
+import { enviroment } from '../enviroment';
 
 @Injectable({ providedIn: 'root' })
 export class ForumService {
-  private apiUrl = 'http://localhost:9000/api/forum';
+  private apiUrl = `${enviroment.apiUrl}/forum`;
 
   constructor(private http: HttpClient) {}
 

@@ -4,10 +4,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Message } from '../models/message.model';
 import { AuthService } from './auth.service';
+import { enviroment } from '../enviroment';
 
 @Injectable({ providedIn: 'root' })
 export class MessageService {
-  private apiUrl = 'http://localhost/api/Message';
+  private apiUrl = `${enviroment.apiUrl}/message`;
   constructor(private http: HttpClient) {}
 
   getAll(atributo: string, filtro: string, page: number): Observable<Message[]> {

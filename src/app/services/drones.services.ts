@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { enviroment } from '../enviroment';
 
 export interface Drone {
   _id?: string;
@@ -26,7 +27,7 @@ export interface Drone {
   providedIn: 'root'
 })
 export class DronesService {
-  private apiUrl = 'http://localhost:9000/api/drones';
+  private apiUrl = `${enviroment.apiUrl}/drones`;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
