@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   register(payload: RegisterPayload): Observable<any> {
-    return this.http.post(`${this.apiUrl}/signup`, payload);
+    return this.http.post(`${this.apiUrl}/register`, payload);
   }
 
   logout(): void {

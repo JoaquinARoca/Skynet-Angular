@@ -1,13 +1,13 @@
-<h1>Backoffice skynet</h1>
-<button (click)="goToDrones()">Ir a Drones</button>
-<button (click)="goToForum()">Ir a Forum</button>
-<button (click)="goToComments()">Ir a Comments</button>
-<button (click)="goToMessages()">Ir a Messages</button>
-<button (click)="goToNotifications()">Ir a Notifications</button>
+<div class="top-right">
+  <button class="logout-btn" (click)="logout()">⎋ Cerrar sesión</button>
+</div>
 
+<div class="container">
+  <h2>Backoffice Skynet</h2>
 
-<!-- <ul>
-  <li *ngFor="let user of users">
-    {{ user.userName }} - {{ user.email }}
-  </li>
-</ul> -->
+  <ul>
+    <li *ngFor="let modelo of modelos">
+      <a [routerLink]="['/panel', modelo]">{{ modelo | titlecase }}</a>
+    </li>
+  </ul>
+</div>

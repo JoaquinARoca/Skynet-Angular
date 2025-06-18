@@ -1,38 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Notification } from '../models/notification.model';
+import { Order } from '../models/order.model';
 import { AuthService } from './auth.service';
 import { enviroment } from '../enviroment';
 
 @Injectable({ providedIn: 'root' })
-export class NotificationService {
-  private apiUrl = `${enviroment.apiUrl}/notifications`;
+export class OrderService {
+  private apiUrl = `${enviroment.apiUrl}/orders`;
 
   constructor(private http: HttpClient) {}
 
-  getAll(filtro: Record<string, string> = {}, page?: number): Observable<Notification[]> {
+  getAll(filtro: Record<string, string> = {}, page?: number): Observable<Order[]> {
     const params = new HttpParams({ fromObject: { ...filtro, ...(page ? { page } : {}) } });
-    return this.http.get<Notification[]>(this.apiUrl, {
+    return this.http.get<Order[]>(this.apiUrl, {
       headers: AuthService.getHeaders(),
       params
     });
   }
 
-  getById(id: string): Observable<Notification> {
-    return this.http.get<Notification>(`${this.apiUrl}?id=${id}`, {
+  getById(id: string): Observable<Order> {
+    return this.http.get<Order>(`${this.apiUrl}?id=${id}`, {
       headers: AuthService.getHeaders()
     });
   }
 
-  create(data: Partial<Notification>): Observable<Notification> {
-    return this.http.post<Notification>(this.apiUrl, data, {
+  create(data: Partial<Order>): Observable<Order> {
+    return this.http.post<Order>(this.apiUrl, data, {
       headers: AuthService.getHeaders()
     });
   }
 
-  update(id: string, data: Partial<Notification>): Observable<Notification> {
-    return this.http.put<Notification>(`${this.apiUrl}?id=${id}`, data, {
+  update(id: string, data: Partial<Order>): Observable<Order> {
+    return this.http.put<Order>(`${this.apiUrl}?id=${id}`, data, {
       headers: AuthService.getHeaders()
     });
   }
@@ -44,6 +44,6 @@ export class NotificationService {
   }
 
   getAtributos(): string[] {
-    return ['_id', 'to', 'from', 'type', 'post', 'read', 'createdAt'];
+    return ['_id', 'droneId', 'buyerId', 'sellerId', 'status', 'createdAt'];
   }
 }
