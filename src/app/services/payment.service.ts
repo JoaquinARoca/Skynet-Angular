@@ -43,7 +43,7 @@ export class PaymentService {
     });
   }
 
-  getAtributos(): (keyof Payment)[] {
-    return ['id', 'orderId', 'userId', 'amount', 'status', 'createdAt'];
+  getAtributos(): string[] {
+    return ['_id', 'orderId', 'userId', 'amount', 'status', 'createdAt'];
   }
 }

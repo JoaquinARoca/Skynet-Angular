@@ -43,7 +43,7 @@ export class NotificationService {
     });
   }
 
-  getAtributos(): (keyof Notification)[] {
-    return ['id', 'to', 'from', 'type', 'post', 'read', 'createdAt'];
+  getAtributos(): string[] {
+    return ['_id', 'to', 'from', 'type', 'post', 'read', 'createdAt'];
   }
 }

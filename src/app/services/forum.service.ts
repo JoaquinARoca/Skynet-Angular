@@ -26,10 +26,11 @@ export class ForumService {
   }
 
   create(data: Partial<Forum>): Observable<Forum> {
-    return this.http.post<Forum>(this.apiUrl, data, {
-      headers: AuthService.getHeaders()
-    });
-  }
+  return this.http.post<Forum>(this.apiUrl, data, {
+    headers: AuthService.getHeaders()
+  });
+}
+
 
   update(id: string, data: Partial<Forum>): Observable<Forum> {
     return this.http.put<Forum>(`${this.apiUrl}?id=${id}`, data, {
@@ -43,7 +44,7 @@ export class ForumService {
     });
   }
 
-  getAtributos(): (keyof Forum)[] {
-    return ['id', 'name', 'comment'];
+  getAtributos(): string[] {
+    return ['_id', 'name', 'comment'];
   }
 }

@@ -43,9 +43,9 @@ export class PostService {
     });
   }
 
-  getAtributos(): (keyof Post)[] {
+  getAtributos(): string[] {
     return [
-      'id', 'author', 'mediaUrl', 'mediaType', 'description', 'location',
+      '_id', 'author', 'mediaUrl', 'mediaType', 'description', 'location',
       'tags', 'likes', 'comments', 'createdAt', 'updatedAt'
     ];
   }

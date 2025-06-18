@@ -11,13 +11,25 @@ export class DroneService {
 
   constructor(private http: HttpClient) {}
 
-  getAll(filtro: Record<string, string> = {}, page?: number): Observable<Drone[]> {
-    const params = new HttpParams({ fromObject: { ...filtro, ...(page ? { page } : {}) } });
-    return this.http.get<Drone[]>(this.apiUrl, {
-      headers: AuthService.getHeaders(),
-      params
-    });
-  }
+  getAll(
+  filtro: Record<string, string> = {},
+  page: number = 1,
+  limit: number = 10
+): Observable<{ drones: Drone[], pages: number }> {
+  const params = new HttpParams({
+    fromObject: {
+      ...filtro,
+      page: page.toString(),
+      limit: limit.toString()
+    }
+  });
+
+  return this.http.get<{ drones: Drone[], pages: number }>(this.apiUrl, {
+    headers: AuthService.getHeaders(),
+    params
+  });
+}
+
 
   getById(id: string): Observable<Drone> {
     return this.http.get<Drone>(`${this.apiUrl}?id=${id}`, {
@@ -43,9 +55,9 @@ export class DroneService {
     });
   }
 
-  getAtributos(): (keyof Drone)[] {
+  getAtributos(): string[] {
     return [
-      'id', 'ownerId', 'model', 'price', 'details', 'category', 'condition',
+      '_id', 'ownerId', 'model', 'price', 'details', 'category', 'condition',
       'location', 'contact', 'images', 'createdAt', 'status', 'ratings',
       'currency', 'buyerId', 'stock'
     ];

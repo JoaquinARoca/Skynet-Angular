@@ -12,15 +12,16 @@ import { AuthService } from '../services/auth.service';
 })
 export class HomeComponent {
   modelos: string[] = [
-    'users',
-    'posts',
-    'drones',
     'comments',
+    'drones',
     'forum',
+    'messages',
+    'notifications',
     'orders',
     'payments',
-    'notifications',
-    'sessions'
+    'posts',
+    'sessions',
+    'users'
   ];
 
   constructor(private router: Router) {}

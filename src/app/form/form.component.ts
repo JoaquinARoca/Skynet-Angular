@@ -82,20 +82,20 @@ export class FormComponent implements OnInit {
       return;
     }
 
-    const data = this.form.value;
+    const { _id, ...data } = this.form.value; // 🔧 Quitar _id si está vacío
+
     let peticion: Observable<any>;
 
     // Si es modelo "users" y NO hay ID → usamos el AuthService para registrar
     if (this.modelo === 'users' && !this.id) {
-      peticion = this.authService.register(data); // ✅ Correcto
+      peticion = this.authService.register(data);
 
-    }
-    // Si hay ID → estamos editando
-    else if (this.id) {
+      // Si hay ID → estamos editando
+    } else if (this.id) {
       peticion = this.instanciaServicio.update(this.id, data);
-    }
-    // Si no hay ID → creando cualquier otro modelo
-    else {
+
+      // Si no hay ID → creando cualquier otro modelo
+    } else {
       peticion = this.instanciaServicio.create(data);
     }
 
@@ -105,10 +105,10 @@ export class FormComponent implements OnInit {
         this.router.navigate([`/panel/${this.modelo}`]);
       },
       error: (err) => {
-        alert(`Error al guardar: ${err.err.message}`);
-        alert('Ocurrió un error al guardar. Revisa los campos o intenta de nuevo. ');
+        alert(`Error al guardar: ${err?.error?.message || 'Error desconocido.'}`);
       }
     });
   }
+
 
 }

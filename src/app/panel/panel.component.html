@@ -38,7 +38,8 @@
 
   <div class="paginacion">
     <button (click)="page = page - 1; cargarDatos()" [disabled]="page <= 1">← Anterior</button>
-    <span>Página {{ page }}</span>
-    <button (click)="page = page + 1; cargarDatos()">Siguiente →</button>
+    <span>Página {{ page }} de {{ totalPages }}</span>
+    <button (click)="page = page + 1; cargarDatos()" [disabled]="page >= totalPages">Siguiente →</button>
   </div>
+
 </div>

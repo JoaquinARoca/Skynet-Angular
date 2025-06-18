@@ -27,12 +27,14 @@ export class PanelComponent implements OnInit {
   filtro: string = '';
   atributoFiltro: string = '';
   instanciaServicio: any;
+  totalPages: number = 1;
+
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -51,14 +53,25 @@ export class PanelComponent implements OnInit {
   }
 
   cargarDatos(): void {
-    console.log('→ cargando datos');
-    const query: Record<string, string> = {};
-    if (this.filtro && this.atributoFiltro) query[this.atributoFiltro] = this.filtro;
+  const query: Record<string, string> = {
+    currency: 'EUR', // ← Ajusta a la moneda por defecto que uses
+  };
 
-    this.instanciaServicio.getAll(query, this.page).subscribe((data: any[]) => {
-      this.datos = data;
-    });
+  if (this.filtro && this.atributoFiltro) {
+    query[this.atributoFiltro] = this.filtro;
   }
+
+  this.instanciaServicio.getAll(query, this.page).subscribe((res: any) => {
+    const keyWithArray = Object.keys(res).find(
+      key => Array.isArray(res[key]) && typeof res[key][0] === 'object'
+    );
+    this.datos = keyWithArray ? res[keyWithArray] : [];
+    this.totalPages = typeof res.pages === 'number' ? res.pages : 1;
+  });
+}
+
+
+
 
   editar(id: string): void {
     this.router.navigate([`/form/${this.modelo}/${id}`]);

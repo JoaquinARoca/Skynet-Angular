@@ -43,7 +43,7 @@ export class CommentService {
     });
   }
 
-  getAtributos(): (keyof Comment)[] {
-    return ['id', 'droneId', 'userId', 'text', 'rating', 'parentCommentId', 'createdAt'];
+  getAtributos(): string[] {
+    return ['_id', 'droneId', 'userId', 'text', 'rating', 'parentCommentId', 'createdAt'];
   }
 }

@@ -43,7 +43,7 @@ export class OrderService {
     });
   }
 
-  getAtributos(): (keyof Order)[] {
-    return ['id', 'droneId', 'buyerId', 'sellerId', 'status', 'createdAt'];
+  getAtributos(): string[] {
+    return ['_id', 'droneId', 'buyerId', 'sellerId', 'status', 'createdAt'];
   }
 }

@@ -43,7 +43,7 @@ export class SessionService {
     });
   }
 
-  getAtributos(): (keyof Session)[] {
-    return ['id', 'scenario', 'mode', 'host', 'participants', 'state', 'createdAt'];
+  getAtributos(): string[] {
+    return ['_id', 'scenario', 'mode', 'host', 'participants', 'state', 'createdAt'];
   }
 }
